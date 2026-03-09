@@ -21,15 +21,15 @@ const CDN = 'https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1';
 
 // Collections to import: [collection display name, arabic edition, english edition]
 const COLLECTIONS = [
-    { name: 'Sahih Bukhari', arabicEdition: 'ara-bukhari', engEdition: 'eng-bukhari', topic: 'General' },
-    { name: 'Sahih Muslim', arabicEdition: 'ara-muslim', engEdition: 'eng-muslim', topic: 'General' },
-    { name: 'Sunan Abu Dawud', arabicEdition: 'ara-abudawud', engEdition: 'eng-abudawud', topic: 'General' },
-    { name: 'Jami Tirmidhi', arabicEdition: 'ara-tirmidhi', engEdition: 'eng-tirmidhi', topic: 'General' },
-    { name: 'Sunan Nasai', arabicEdition: 'ara-nasai', engEdition: 'eng-nasai', topic: 'General' },
-    { name: 'Sunan Ibn Majah', arabicEdition: 'ara-ibnmajah', engEdition: 'eng-ibnmajah', topic: 'General' },
-    { name: 'Muwatta Malik', arabicEdition: 'ara-malik', engEdition: 'eng-malik', topic: 'General' },
-    { name: 'Forty Hadith Nawawi', arabicEdition: 'ara-nawawi', engEdition: 'eng-nawawi', topic: 'Forty Hadith' },
-    { name: 'Forty Hadith Qudsi', arabicEdition: 'ara-qudsi', engEdition: 'eng-qudsi', topic: 'Hadith Qudsi' },
+    { id: 'bukhari', name: 'Sahih Bukhari', arabicEdition: 'ara-bukhari', engEdition: 'eng-bukhari', topic: 'General' },
+    { id: 'muslim', name: 'Sahih Muslim', arabicEdition: 'ara-muslim', engEdition: 'eng-muslim', topic: 'General' },
+    { id: 'abudawud', name: 'Sunan Abu Dawud', arabicEdition: 'ara-abudawud', engEdition: 'eng-abudawud', topic: 'General' },
+    { id: 'tirmidhi', name: 'Jami Tirmidhi', arabicEdition: 'ara-tirmidhi', engEdition: 'eng-tirmidhi', topic: 'General' },
+    { id: 'nasai', name: 'Sunan Nasai', arabicEdition: 'ara-nasai', engEdition: 'eng-nasai', topic: 'General' },
+    { id: 'ibnmajah', name: 'Sunan Ibn Majah', arabicEdition: 'ara-ibnmajah', engEdition: 'eng-ibnmajah', topic: 'General' },
+    { id: 'malik', name: 'Muwatta Malik', arabicEdition: 'ara-malik', engEdition: 'eng-malik', topic: 'General' },
+    { id: 'nawawi', name: 'Forty Hadith Nawawi', arabicEdition: 'ara-nawawi', engEdition: 'eng-nawawi', topic: 'Forty Hadith' },
+    { id: 'qudsi', name: 'Forty Hadith Qudsi', arabicEdition: 'ara-qudsi', engEdition: 'eng-qudsi', topic: 'Hadith Qudsi' },
 ];
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -219,7 +219,7 @@ async function main() {
                 }
 
                 records.push({
-                    collection: col.name,
+                    collection: col.id,
                     bookNumber: 1,
                     number: hadithNumber,
                     arabicText: arabicText || translationEN, // fallback
