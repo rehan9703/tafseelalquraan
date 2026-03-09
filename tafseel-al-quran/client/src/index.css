@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian: #060810;
+  --color-navy-900: #0A0E1A;
+  --color-navy-800: #0F1629;
+  --color-navy-700: #141C35;
+  --color-navy-600: #1A2444;
+  --color-navy-500: #1E2D4D;
+
+  --color-gold-900: #7A5C1E;
+  --color-gold-700: #B8922A;
+  --color-gold-500: #C9A84C;
+  --color-gold-300: #E8C97A;
+  --color-gold-100: #FDF3D7;
+
+  --color-emerald: #10B981;
+  --color-crimson: #EF4444;
+  --color-sapphire: #3B82F6;
+
+  --color-text-primary: #F5F0E8;
+  --color-text-secondary: #C4B99A;
+  --color-text-muted: #6B7280;
+  --color-text-arabic: #EDE8DC;
+
+  --color-border-subtle: #1E2D4D;
+  --color-border-gold: rgba(201, 168, 76, 0.3);
+
+  --font-headings: "Cinzel Decorative", serif;
+  --font-arabic: "Noto Naskh Arabic", serif;
+  --font-body: "Lora", serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --shadow-gold-strong: 0 0 20px rgba(201, 168, 76, 0.25);
+  --shadow-gold-glow: 0 0 30px rgba(201, 168, 76, 0.1), 0 0 60px rgba(201, 168, 76, 0.05);
+
+  --animate-breathe: breathe 4s ease-in-out infinite;
+  --animate-star-spin: spinStar 20s linear infinite;
+  --animate-pattern-drift: patternDrift 120s linear infinite;
+
+  @keyframes breathe {
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.9;
+    }
+
+    50% {
+      transform: scale(1.02);
+      opacity: 1;
+    }
+  }
+
+  @keyframes spinStar {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes patternDrift {
+    from {
+      background-position: 0 0;
+    }
+
+    to {
+      background-position: 80px 80px;
+    }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border-subtle);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gold-700) var(--color-navy-800);
+  }
+
+  body {
+    background: var(--color-obsidian);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Living Islamic Background Pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0 L51.7 28.3 L80 40 L51.7 51.7 L40 80 L28.3 51.7 L0 40 L28.3 28.3 Z' fill='none' stroke='%23C9A84C' stroke-width='0.5'/%3E%3C/svg%3E");
+    background-size: 80px 80px;
+    animation: var(--animate-pattern-drift);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-headings);
+    letter-spacing: 0.05em;
+  }
+}
+
+@utility manuscript-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid var(--color-border-subtle);
+  background: linear-gradient(135deg, var(--color-navy-700) 0%, var(--color-navy-800) 100%);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  transition: all 0.5s ease;
+
+  &:hover {
+    border-color: rgba(201, 168, 76, 0.4);
+    transform: translateY(-0.25rem);
+    box-shadow: var(--shadow-gold-glow);
+  }
+}
+
+@utility btn-gold {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background-color: var(--color-gold-500);
+  padding: 0.625rem 1.5rem;
+  font-weight: 700;
+  color: var(--color-navy-900);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: var(--color-gold-300);
+    transform: translateY(-0.125rem);
+    box-shadow: var(--shadow-gold-strong);
+  }
+}
+
+@utility gradient-text-gold {
+  background: linear-gradient(135deg, var(--color-gold-500) 0%, var(--color-gold-300) 50%, var(--color-gold-500) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

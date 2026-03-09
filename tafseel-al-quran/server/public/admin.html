@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tafseel-al-Qur'an | API Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --islamic-primary: #1a4d2e;
+            --islamic-secondary: #ff9f43;
+            --islamic-gold: #d4af37;
+            --islamic-bg: #0f172a;
+            --islamic-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--islamic-bg);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .background-blob {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(26, 77, 46, 0.2) 0%, rgba(15, 23, 42, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(80px);
+        }
+
+        .blob-1 {
+            top: -100px;
+            right: -100px;
+        }
+
+        .blob-2 {
+            bottom: -100px;
+            left: -100px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 95%;
+            background: var(--islamic-card);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--islamic-gold);
+            font-size: 2.5rem;
+            margin: 0;
+            letter-spacing: -0.05em;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .status-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .status-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--islamic-gold);
+        }
+
+        .status-card h3 {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .status-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 10px;
+            color: var(--islamic-secondary);
+        }
+
+        .endpoint-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .endpoint-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: rgba(15, 23, 42, 0.3);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .endpoint-item:hover {
+            background: rgba(26, 77, 46, 0.2);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .method {
+            background: var(--islamic-primary);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .path {
+            color: var(--islamic-gold);
+            font-family: monospace;
+            margin-left: 15px;
+            flex-grow: 1;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--islamic-gold), #b8860b);
+            color: var(--islamic-bg);
+            padding: 12px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(212, 175, 55, 0.4);
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .pulse {
+            width: 10px;
+            height: 10px;
+            background: #4ade80;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            box-shadow: 0 0 0 rgba(74, 222, 128, 0.4);
+            animation: pulse-animation 2s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% {
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-blob blob-1"></div>
+    <div class="background-blob blob-2"></div>
+
+    <div class="container">
+        <header>
+            <h1>Tafseel-al-Qur'an <span style="font-weight: 300; opacity: 0.7;">API</span></h1>
+            <p class="subtitle">Secure Backend Gateway & Islamic Knowledge Services</p>
+        </header>
+
+        <div class="status-grid">
+            <div class="status-card">
+                <h3>System Status</h3>
+                <div class="value"><span class="pulse"></span>Operational</div>
+            </div>
+            <div class="status-card">
+                <h3>Version</h3>
+                <div class="value">v1.2.0</div>
+            </div>
+            <div class="status-card">
+                <h3>Uptime</h3>
+                <div class="value">99.9%</div>
+            </div>
+        </div>
+
+        <section>
+            <h2 style="color: var(--text-main); margin-bottom: 20px;">Primary Endpoints</h2>
+            <div class="endpoint-list">
+                <div class="endpoint-item">
+                    <span class="method">GET</span>
+                    <span class="path">/api/quran/surahs</span>
+                    <a href="/api/quran/surahs" class="btn"
+                        style="padding: 6px 12px; font-size: 0.8rem; box-shadow: none;">Test</a>
+                </div>
+                <div class="endpoint-item">
+                    <span class="method">GET</span>
+                    <span class="path">/api/prophets</span>
+                    <a href="/api/prophets" class="btn"
+                        style="padding: 6px 12px; font-size: 0.8rem; box-shadow: none;">Test</a>
+                </div>
+                <div class="endpoint-item">
+                    <span class="method">GET</span>
+                    <span class="path">/api/health</span>
+                    <a href="/api/health" class="btn"
+                        style="padding: 6px 12px; font-size: 0.8rem; box-shadow: none;">Test</a>
+                </div>
+            </div>
+        </section>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="/api/docs" class="btn">View API Documentation</a>
+        </div>
+
+        <footer>
+            <p>Created with dedication by <span style="color: var(--islamic-gold); font-weight: 600;">Rehan97</span></p>
+            <p style="font-size: 0.8rem; opacity: 0.6;">© 2026 Tafseel-al-Qur'an Ecosystem</p>
+        </footer>
+    </div>
+</body>
+
+</html>

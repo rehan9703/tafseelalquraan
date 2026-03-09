@@ -1,0 +1,298 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// Enums removed for SQLite compatibility. using Strings instead.
+
+model User {
+  id              String    @id @default(uuid())
+  name            String
+  email           String    @unique
+  passwordHash    String
+  role            String    @default("USER")
+  avatarUrl       String?
+  language        String  @default("EN")
+  isEmailVerified Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  bookmarks       Bookmark[]
+  quizResults     QuizResult[]
+  readingProgress ReadingProgress[]
+  userStreak      UserStreak?
+  refreshTokens   RefreshToken[]
+
+  @@index([email])
+  @@map("users")
+}
+
+model Surah {
+  id                  Int            @id @default(autoincrement())
+  number              Int            @unique
+  nameArabic          String
+  nameEnglish         String
+  nameTransliteration String
+  revelationType      String
+  ayahCount           Int
+  juzStart            Int
+  juzEnd              Int
+  orderOfRevelation   Int
+  virtues             String?       
+  summary             String?       
+
+  ayahs               Ayah[]
+  surahFacts          SurahFact[]
+  readingProgress     ReadingProgress[]
+
+  @@index([number])
+  @@index([revelationType])
+  @@map("surahs")
+}
+
+model Ayah {
+  id                String  @id @default(uuid())
+  surahId           Int
+  ayahNumber        Int
+  arabicText        String 
+  translationEN     String?
+  translationUR     String?
+  translationAR     String?
+  translationHinglish String?
+  tafseerEN         String?
+  tafseerUR         String?
+  tafseerAR         String?
+  juzNumber         Int
+  hizbNumber        Int
+  page              Int     @default(1)
+  ruku              Int     @default(1)
+  manzil            Int     @default(1)
+  maqra             Int     @default(1)
+  sajda             Boolean @default(false)
+  audioUrl          String?
+
+  surah             Surah   @relation(fields: [surahId], references: [id], onDelete: Cascade)
+
+  @@index([surahId])
+  @@index([juzNumber])
+  @@map("ayahs")
+}
+
+model SurahFact {
+  id      String @id @default(uuid())
+  surahId Int
+  fact    String
+
+  surah   Surah  @relation(fields: [surahId], references: [id], onDelete: Cascade)
+
+  @@index([surahId])
+  @@map("surah_facts")
+}
+
+model Prophet {
+  id                String @id @default(uuid())
+  nameArabic        String
+  nameEnglish       String
+  title             String
+  nation            String
+  orderNumber       Int
+  story             String
+  lessonsLearned    String
+  keyMiracles       String
+  quranicReferences String
+  periodEra         String
+
+  @@unique([orderNumber])
+  @@index([orderNumber])
+  @@map("prophets")
+}
+
+model Hadith {
+  id            String  @id @default(uuid())
+  collection    String
+  bookNumber    Int    @default(1)
+  number        Int
+  arabicText    String 
+  translationEN String 
+  translationUR String?
+  narrator      String?
+  source        String?
+  explanationEN String?
+  explanationUR String?
+  category      String? @default("General")
+  topic         String? @default("General")
+  grades        String? // Storing JSON stringified grades since SQLite doesn't natively support JSON
+
+  @@unique([collection, number])
+  @@index([collection])
+  @@index([topic])
+  @@map("hadiths")
+}
+
+model NameOfAllah {
+  id               String  @id @default(uuid())
+  number           Int
+  nameArabic       String
+  transliteration  String
+  meaningEN        String
+  meaningUR        String?
+  virtues          String?
+  quranicReference String?
+  category         String
+
+  @@unique([number])
+  @@index([number])
+  @@index([category])
+  @@map("names_of_allah")
+}
+
+model Dua {
+  id             String  @id @default(uuid())
+  titleEN        String
+  arabicText     String 
+  transliteration String
+  translationEN  String 
+  translationUR  String?
+  situation      String
+  source         String
+  virtues        String?
+  audioUrl       String?
+
+  @@index([situation])
+  @@map("duas")
+}
+
+model IslamicEvent {
+  id            String @id @default(uuid())
+  title         String
+  year          String
+  era           String
+  description   String
+  keyFigures    String
+  significance  String
+  category      String
+  iconType      String
+
+  @@unique([title])
+  @@index([era])
+  @@index([category])
+  @@map("islamic_events")
+}
+
+model QuizQuestion {
+  id            String     @id @default(uuid())
+  question      String    
+  optionA       String
+  optionB       String
+  optionC       String
+  optionD       String
+  correctOption String
+  explanation   String    
+  category      String
+  difficulty    String
+  isActive      Boolean    @default(true)
+
+  @@index([category])
+  @@index([difficulty])
+  @@map("quiz_questions")
+}
+
+model QuizResult {
+  id                String   @id @default(uuid())
+  userId            String
+  category          String
+  difficulty        String
+  totalQuestions    Int
+  correctAnswers    Int
+  scorePercent      Float
+  timeTakenSeconds  Int
+  createdAt         DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([category])
+  @@map("quiz_results")
+}
+
+model Bookmark {
+  id          String      @id @default(uuid())
+  userId      String
+  contentType String
+  contentId   String
+  note        String?
+  createdAt   DateTime    @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([contentType])
+  @@index([contentId])
+  @@unique([userId, contentType, contentId])
+  @@map("bookmarks")
+}
+
+model ReadingProgress {
+  id           String   @id @default(uuid())
+  userId       String
+  surahId      Int
+  lastAyahRead Int
+  isCompleted  Boolean  @default(false)
+  updatedAt    DateTime @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  surah Surah @relation(fields: [surahId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([surahId])
+  @@unique([userId, surahId])
+  @@map("reading_progress")
+}
+
+model UserStreak {
+  id             String   @id @default(uuid())
+  userId         String   @unique
+  currentStreak  Int      @default(0)
+  longestStreak  Int      @default(0)
+  lastActiveDate DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("user_streaks")
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId])
+  @@map("refresh_tokens")
+}
+
+model IslamicIssue {
+  id              String   @id @default(uuid())
+  title           String   @unique
+  description     String  
+  consequences    String  
+  reasonsToAvoid  String  
+  howToFix        String  
+  evidenceQuran   String  
+  evidenceHadith  String  
+  category        String
+  iconType        String   @default("AlertTriangle")
+  colorScheme     String   @default("from-red-500/20 to-red-600/10")
+
+  @@index([category])
+  @@map("islamic_issues")
+}

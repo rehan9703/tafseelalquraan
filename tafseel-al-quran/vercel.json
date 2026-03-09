@@ -1,0 +1,21 @@
+{
+    "version": 2,
+    "buildCommand": "cd server && npm install && npx prisma generate && npx prisma migrate deploy && npx prisma db seed && cd ../client && npm install && npm run build",
+    "outputDirectory": "client/dist",
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "https://tafseel-backend.vercel.app/api/$1"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "/api/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/index.html"
+        }
+    ]
+}

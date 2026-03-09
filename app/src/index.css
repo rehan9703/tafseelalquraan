@@ -1,0 +1,536 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cinzel+Decorative:wght@400;700;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Islamic Dark Theme - Luxury Gold & Navy */
+    --bg-primary: #0A0E1A;
+    --bg-secondary: #0F1629;
+    --bg-card: #141C35;
+    --bg-hover: #1A2442;
+    --border: #1E2D4D;
+    --border-hover: #2D3F66;
+
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #A68A3D;
+    --gold-muted: #8B7355;
+
+    --emerald: #2ECC71;
+    --emerald-light: #58D68D;
+    --emerald-dark: #27AE60;
+
+    --crimson: #E74C3C;
+    --crimson-light: #EC7063;
+    --crimson-dark: #C0392B;
+
+    --text-primary: #F5F0E8;
+    --text-secondary: #9AA5BE;
+    --text-muted: #5A6580;
+    --text-gold: #E8C97A;
+
+    /* shadcn/ui variables */
+    --background: 225 50% 5%;
+    --foreground: 40 30% 94%;
+    --card: 225 45% 8%;
+    --card-foreground: 40 30% 94%;
+    --popover: 225 45% 8%;
+    --popover-foreground: 40 30% 94%;
+    --primary: 43 50% 54%;
+    --primary-foreground: 225 50% 5%;
+    --secondary: 225 35% 12%;
+    --secondary-foreground: 40 30% 94%;
+    --muted: 225 35% 12%;
+    --muted-foreground: 220 15% 55%;
+    --accent: 43 50% 54%;
+    --accent-foreground: 225 50% 5%;
+    --destructive: 4 70% 55%;
+    --destructive-foreground: 40 30% 94%;
+    --border: 220 35% 18%;
+    --input: 220 35% 18%;
+    --ring: 43 50% 54%;
+    --radius: 0.75rem;
+
+    --sidebar-background: 225 45% 6%;
+    --sidebar-foreground: 40 30% 94%;
+    --sidebar-primary: 43 50% 54%;
+    --sidebar-primary-foreground: 225 50% 5%;
+    --sidebar-accent: 225 35% 12%;
+    --sidebar-accent-foreground: 40 30% 94%;
+    --sidebar-border: 220 35% 15%;
+    --sidebar-ring: 43 50% 54%;
+  }
+
+  /* ===== LIGHT THEME ===== */
+  html.light-theme {
+    --bg-primary: #F5F0E8;
+    --bg-secondary: #EDE8DC;
+    --bg-card: #FFFFFF;
+    --bg-hover: #F0EAD8;
+    --border: #D9D0BD;
+    --border-hover: #C5BA9F;
+
+    --text-primary: #1A1409;
+    --text-secondary: #4A3F2F;
+    --text-muted: #8B7D68;
+    --text-gold: #8B6914;
+
+    --gold: #A8721C;
+    --gold-light: #C9A84C;
+    --gold-dark: #7A5210;
+    --gold-muted: #C5A96E;
+
+    --background: 40 30% 92%;
+    --foreground: 30 30% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 30% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 30% 8%;
+    --primary: 35 72% 39%;
+    --primary-foreground: 40 30% 94%;
+    --secondary: 40 20% 88%;
+    --secondary-foreground: 30 30% 8%;
+    --muted: 40 20% 88%;
+    --muted-foreground: 35 15% 45%;
+    --accent: 35 72% 39%;
+    --accent-foreground: 40 30% 94%;
+    --destructive: 4 70% 45%;
+    --destructive-foreground: 40 30% 94%;
+    --border: 40 20% 80%;
+    --input: 40 20% 80%;
+    --ring: 35 72% 39%;
+
+    --sidebar-background: 40 25% 90%;
+    --sidebar-foreground: 30 30% 8%;
+    --sidebar-primary: 35 72% 39%;
+    --sidebar-primary-foreground: 40 30% 94%;
+    --sidebar-accent: 40 20% 85%;
+    --sidebar-accent-foreground: 30 30% 8%;
+    --sidebar-border: 40 20% 78%;
+    --sidebar-ring: 35 72% 39%;
+  }
+}
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Lora', Georgia, serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Arabic Text Styling */
+  .arabic-text {
+    font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+    direction: rtl;
+    font-size: 1.5rem;
+    line-height: 2.4;
+    text-align: right;
+  }
+
+  .arabic-large {
+    font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+    direction: rtl;
+    font-size: 2rem;
+    line-height: 2.6;
+    text-align: right;
+  }
+
+  /* Headings */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Cinzel Decorative', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  /* Numbers */
+  .number-font {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-muted);
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgba(201, 168, 76, 0.3);
+    color: var(--text-primary);
+  }
+}
+
+@layer components {
+
+  /* Islamic Card */
+  .islamic-card {
+    @apply rounded-2xl border transition-all duration-300;
+    background-color: var(--bg-card);
+    border-color: var(--border);
+  }
+
+  .islamic-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(201, 168, 76, 0.1);
+  }
+
+  /* Gold Button */
+  .btn-gold {
+    @apply px-6 py-3 rounded-xl font-medium transition-all duration-300;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: var(--bg-primary);
+  }
+
+  .btn-gold:hover {
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+    box-shadow: 0 4px 20px rgba(201, 168, 76, 0.4);
+    transform: translateY(-1px);
+  }
+
+  /* Outline Gold Button */
+  .btn-outline-gold {
+    @apply px-6 py-3 rounded-xl font-medium transition-all duration-300 border-2;
+    border-color: var(--gold);
+    color: var(--gold);
+    background: transparent;
+  }
+
+  .btn-outline-gold:hover {
+    background: rgba(201, 168, 76, 0.1);
+    box-shadow: 0 0 20px rgba(201, 168, 76, 0.2);
+  }
+
+  /* Gold Text Gradient */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Islamic Pattern Background */
+  .pattern-bg {
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(201, 168, 76, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(201, 168, 76, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(46, 204, 113, 0.02) 0%, transparent 40%);
+  }
+
+  /* Star Pattern Overlay */
+  .star-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* Glow Effect */
+  .glow-gold {
+    box-shadow: 0 0 30px rgba(201, 168, 76, 0.3);
+  }
+
+  /* Glass Effect */
+  .glass {
+    background: rgba(20, 28, 53, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Loading Spinner */
+  .spinner-islamic {
+    @apply w-12 h-12 rounded-full border-2;
+    border-color: var(--border);
+    border-top-color: var(--gold);
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Fade In Animation */
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Slide In Animation */
+  .slide-in-left {
+    animation: slideInLeft 0.4s ease-out;
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Gold Shimmer */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(201, 168, 76, 0.2),
+        transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    to {
+      left: 100%;
+    }
+  }
+
+  /* Verse Number Badge */
+  .ayah-number {
+    @apply inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: var(--bg-primary);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Bismillah Styling */
+  .bismillah {
+    font-family: 'Amiri', serif;
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--gold);
+    margin: 2rem 0;
+  }
+
+  /* Section Divider */
+  .section-divider {
+    @apply flex items-center justify-center gap-4 my-8;
+  }
+
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    @apply h-px flex-1;
+    background: linear-gradient(90deg, transparent, var(--gold-muted), transparent);
+  }
+
+  /* Active Navigation Item */
+  .nav-active {
+    background: linear-gradient(90deg, rgba(201, 168, 76, 0.15) 0%, transparent 100%);
+    border-left: 3px solid var(--gold);
+    color: var(--gold);
+  }
+
+  /* Progress Ring */
+  .progress-ring-circle {
+    transition: stroke-dashoffset 0.5s ease;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
+}
+
+@layer utilities {
+
+  /* Text Colors */
+  .text-gold {
+    color: var(--gold);
+  }
+
+  .text-gold-light {
+    color: var(--gold-light);
+  }
+
+  .text-emerald {
+    color: var(--emerald);
+  }
+
+  .text-crimson {
+    color: var(--crimson);
+  }
+
+  .text-muted {
+    color: var(--text-muted);
+  }
+
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+
+  /* Background Colors */
+  .bg-primary-dark {
+    background-color: var(--bg-primary);
+  }
+
+  .bg-secondary-dark {
+    background-color: var(--bg-secondary);
+  }
+
+  .bg-card-dark {
+    background-color: var(--bg-card);
+  }
+
+  /* Border Colors */
+  .border-gold {
+    border-color: var(--gold);
+  }
+
+  /* Hover States */
+  .hover-gold:hover {
+    color: var(--gold);
+  }
+
+  .hover-bg-gold:hover {
+    background-color: rgba(201, 168, 76, 0.1);
+  }
+}
+
+/* ─── LIGHT THEME PREMIUM OVERRIDES ─────────────────────────────────────── */
+html.light-theme body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(168, 114, 28, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 80% 100%, rgba(168, 114, 28, 0.04) 0%, transparent 40%);
+}
+
+html.light-theme .islamic-card {
+  background-color: var(--bg-card);
+  border-color: var(--border);
+  box-shadow: 0 2px 16px rgba(100, 70, 10, 0.07), 0 1px 3px rgba(100, 70, 10, 0.06);
+}
+
+html.light-theme .islamic-card:hover {
+  box-shadow: 0 8px 32px rgba(140, 90, 20, 0.14);
+  border-color: var(--gold);
+}
+
+html.light-theme .glass {
+  background: rgba(240, 234, 216, 0.8);
+  backdrop-filter: blur(12px);
+}
+
+html.light-theme ::-webkit-scrollbar-track {
+  background: #EDE8DC;
+}
+
+html.light-theme ::-webkit-scrollbar-thumb {
+  background: #C5BA9F;
+}
+
+html.light-theme ::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+html.light-theme ::selection {
+  background: rgba(168, 114, 28, 0.2);
+  color: var(--text-primary);
+}
+
+html.light-theme .section-divider::before,
+html.light-theme .section-divider::after {
+  background: linear-gradient(90deg, transparent, var(--gold-muted), transparent);
+}
+
+html.light-theme .nav-active {
+  background: linear-gradient(90deg, rgba(168, 114, 28, 0.12) 0%, transparent 100%);
+  border-left-color: var(--gold);
+  color: var(--gold-dark);
+}
+
+html.light-theme .btn-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: white;
+  box-shadow: 0 2px 12px rgba(140, 90, 20, 0.25);
+}
+
+html.light-theme .btn-gold:hover {
+  box-shadow: 0 4px 20px rgba(140, 90, 20, 0.4);
+}
+
+/* ─── PREMIUM DARK ENHANCEMENTS (always-on for dark mode) ─────────────── */
+html:not(.light-theme) body {
+  background-image:
+    radial-gradient(ellipse at 0% 0%, rgba(201, 168, 76, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(46, 204, 113, 0.03) 0%, transparent 50%);
+}
+
+html:not(.light-theme) .islamic-card {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(26, 36, 66, 0.8) 100%);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(201, 168, 76, 0.06);
+}
+
+html:not(.light-theme) .islamic-card:hover {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(201, 168, 76, 0.08), inset 0 1px 0 rgba(201, 168, 76, 0.1);
+}
+
+/* Smooth theme transition */
+*,
+*::before,
+*::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease, box-shadow 0.3s ease;
+}
+
+/* Don't transition transforms or layout props */
+button,
+a,
+input,
+select,
+textarea {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+    box-shadow 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
+}
