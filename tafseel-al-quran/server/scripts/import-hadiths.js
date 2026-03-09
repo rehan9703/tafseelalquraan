@@ -107,6 +107,18 @@ async function main() {
     for (const col of COLLECTIONS) {
         console.log(`\n📖  Processing: ${col.name}`);
 
+        // Check if this collection is already imported
+        try {
+            const count = await prisma.hadith.count({ where: { collection: col.name } });
+            // Allow re-running Bukhari if it's not fully done (approx 7500-7600 records)
+            if (count > 0 && !(col.name === 'Sahih Bukhari' && count < 7500)) {
+                console.log(`   ⏭️  Skipping ${col.name}: already has ${count} records`);
+                continue;
+            }
+        } catch (e) {
+            console.error(`   ⚠️  Error checking ${col.name}: ${e.message}`);
+        }
+
         // Clear this specific collection before importing
         try {
             const deleted = await prisma.hadith.deleteMany({ where: { collection: col.name } });
