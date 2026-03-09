@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { surahs as localSurahsData } from '@/data/quranComplete';
 import { useProgressStore } from '@/store/progressStore';
 import { cn } from '@/lib/utils';
 import { ChevronDown, ChevronUp, BookOpen, CheckCircle2, ExternalLink } from 'lucide-react';
+import { quranService, type Surah } from '@/services/quranService';
 
 // ─── Static Juz start/first-Surah info ───────────────────────────────────────
 // Each entry: { juz, firstSurahNumber, firstAyahInJuz }
